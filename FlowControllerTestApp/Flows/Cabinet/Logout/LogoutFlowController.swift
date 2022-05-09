@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LogoutFlowController: UIViewController {
+class LogoutFlowController: UINavigationController {
     
     private var dependencyContainer: DependencyContainer
     
@@ -24,7 +24,6 @@ class LogoutFlowController: UIViewController {
         super.viewDidLoad()
         
         let vc = LogoutViewController(flags: dependencyContainer.storage)
-        let nc = UINavigationController(rootViewController: vc)
-        add(childController: nc)
+        self.pushViewController(vc, animated: true)
     }
 }

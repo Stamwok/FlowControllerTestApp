@@ -7,18 +7,14 @@
 
 import UIKit
 
-protocol TutorialViewControllerDelegate: AnyObject {
-    func tutorialDidFinish()
-    func nextPage(page: Int)
-}
-
 class TutorialViewController: UIViewController {
     
-    weak var flowController: TutorialViewControllerDelegate?
+    var tutorialDidFinish: (() -> Void)?
+    var nextTutorialPage: ((Int) -> Void)?
     private let tutorialLabel = UILabel()
     private var page = 0
     
-    init(page: Int = 0) {
+    init(page: Int) {
         self.page = page
         super.init(nibName: nil, bundle: nil)
     }
@@ -56,11 +52,11 @@ class TutorialViewController: UIViewController {
     }
     
     @objc func nextButtonTapped() {
-        if page >= 3 {
-            flowController?.tutorialDidFinish()
-        } else {
+        if let tutorialDidFinish = tutorialDidFinish, page >= 3 {
+            tutorialDidFinish()
+        } else if let nextTutorialPage = nextTutorialPage {
             let nextPage = page + 1
-            flowController?.nextPage(page: nextPage)
+            nextTutorialPage(nextPage)
         }
     }
 }

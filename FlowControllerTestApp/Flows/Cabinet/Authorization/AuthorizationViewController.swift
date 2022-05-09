@@ -7,17 +7,11 @@
 
 import UIKit
 
-protocol AuthorizationViewControllerDelegate: AnyObject {
-    func authorizationDidFinish(childController: UIViewController)
-}
-
-class AutorisationViewController: UIViewController, UITextFieldDelegate {
+class AuthorizationViewController: UIViewController, UITextFieldDelegate {
     
-    let textField = UITextField()
-    weak var flowController: AuthorizationViewControllerDelegate?
-    var completion: (() -> Void)?
-    
+    private let textField = UITextField()
     private let flags: Flags
+    var authorizationDidFinish: ((UIViewController) -> Void)?
     
     init(flags: Flags) {
         self.flags = flags
@@ -46,11 +40,11 @@ class AutorisationViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if let text = textField.text, !text.isEmpty {
+        if let text = textField.text, !text.isEmpty, let authorizationDidFinish = authorizationDidFinish {
             flags.login = textField.text
-            completion!()
             textField.resignFirstResponder()
-            flowController?.authorizationDidFinish(childController: self)
+
+            authorizationDidFinish(self)
             return true
         } else {
             return false

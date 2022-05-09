@@ -19,7 +19,9 @@
 		0442C89B2822BC78004D2374 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0442C89A2822BC78004D2374 /* TutorialViewController.swift */; };
 		0442C8A02822DE46004D2374 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0442C89F2822DE46004D2374 /* LoginViewController.swift */; };
 		0442C8A22822DE55004D2374 /* LogoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0442C8A12822DE55004D2374 /* LogoutViewController.swift */; };
-		0442C8A42822DE83004D2374 /* AutorisationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0442C8A32822DE83004D2374 /* AutorisationViewController.swift */; };
+		0442C8A42822DE83004D2374 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0442C8A32822DE83004D2374 /* AuthorizationViewController.swift */; };
+		04B203F62829158C009F5F74 /* CabinetFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B203F52829158C009F5F74 /* CabinetFlowController.swift */; };
+		04B203F9282915E6009F5F74 /* AuthorizationFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B203F8282915E6009F5F74 /* AuthorizationFlowController.swift */; };
 		04D91E2D28245E5900791891 /* LogoutFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D91E2C28245E5900791891 /* LogoutFlowController.swift */; };
 		04D91E2F2824673800791891 /* LoginFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D91E2E2824673800791891 /* LoginFlowController.swift */; };
 /* End PBXBuildFile section */
@@ -39,7 +41,9 @@
 		0442C89A2822BC78004D2374 /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		0442C89F2822DE46004D2374 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0442C8A12822DE55004D2374 /* LogoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewController.swift; sourceTree = "<group>"; };
-		0442C8A32822DE83004D2374 /* AutorisationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutorisationViewController.swift; sourceTree = "<group>"; };
+		0442C8A32822DE83004D2374 /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
+		04B203F52829158C009F5F74 /* CabinetFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetFlowController.swift; sourceTree = "<group>"; };
+		04B203F8282915E6009F5F74 /* AuthorizationFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationFlowController.swift; sourceTree = "<group>"; };
 		04D91E2C28245E5900791891 /* LogoutFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutFlowController.swift; sourceTree = "<group>"; };
 		04D91E2E2824673800791891 /* LoginFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFlowController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -125,16 +129,26 @@
 		0442C89C2822DDE0004D2374 /* Cabinet */ = {
 			isa = PBXGroup;
 			children = (
+				04B203F728291595009F5F74 /* Authorization */,
 				04D91E2B28245A5300791891 /* Logout */,
 				04D91E2A2824590900791891 /* Login */,
+				04B203F52829158C009F5F74 /* CabinetFlowController.swift */,
 			);
 			path = Cabinet;
+			sourceTree = "<group>";
+		};
+		04B203F728291595009F5F74 /* Authorization */ = {
+			isa = PBXGroup;
+			children = (
+				0442C8A32822DE83004D2374 /* AuthorizationViewController.swift */,
+				04B203F8282915E6009F5F74 /* AuthorizationFlowController.swift */,
+			);
+			path = Authorization;
 			sourceTree = "<group>";
 		};
 		04D91E2A2824590900791891 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				0442C8A32822DE83004D2374 /* AutorisationViewController.swift */,
 				0442C89F2822DE46004D2374 /* LoginViewController.swift */,
 				04D91E2E2824673800791891 /* LoginFlowController.swift */,
 			);
@@ -225,9 +239,11 @@
 				0442C89B2822BC78004D2374 /* TutorialViewController.swift in Sources */,
 				0442C8902822A2A9004D2374 /* Flags.swift in Sources */,
 				0442C8A22822DE55004D2374 /* LogoutViewController.swift in Sources */,
+				04B203F9282915E6009F5F74 /* AuthorizationFlowController.swift in Sources */,
 				0442C87A28228347004D2374 /* AppDelegate.swift in Sources */,
+				04B203F62829158C009F5F74 /* CabinetFlowController.swift in Sources */,
 				0442C87C28228347004D2374 /* SceneDelegate.swift in Sources */,
-				0442C8A42822DE83004D2374 /* AutorisationViewController.swift in Sources */,
+				0442C8A42822DE83004D2374 /* AuthorizationViewController.swift in Sources */,
 				04D91E2F2824673800791891 /* LoginFlowController.swift in Sources */,
 				04D91E2D28245E5900791891 /* LogoutFlowController.swift in Sources */,
 				0442C8922822A8B9004D2374 /* DependencyContrainer.swift in Sources */,

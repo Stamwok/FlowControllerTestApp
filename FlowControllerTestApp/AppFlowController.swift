@@ -29,33 +29,22 @@ class AppFlowController: UIViewController, UITabBarControllerDelegate {
     }
     
     private func startCabinet() {
-
-        let tabBarController = UITabBarController()
-        tabBarController.tabBar.layer.borderWidth = 0.50
-        tabBarController.tabBar.layer.borderColor = UIColor.lightGray.cgColor
-        tabBarController.tabBar.clipsToBounds = true
-        tabBarController.delegate = self
-        add(childController: tabBarController)
-        let loginFlowController = LoginFlowController(dependencyContainer: dependencyContainer)
-        loginFlowController.tabBarItem = UITabBarItem.init(title: "Login", image: UIImage(systemName: "circle.fill"), tag: 0)
-        let logoutFlowController = LogoutFlowController(dependencyContainer: dependencyContainer)
-        logoutFlowController.tabBarItem = UITabBarItem.init(title: "Logout", image: UIImage(systemName: "square.fill"), tag: 1)
-        tabBarController.viewControllers = [loginFlowController, logoutFlowController]
+        let cabinetFlowController = CabinetFlowController(dependencyContainer: dependencyContainer)
+        add(childController: cabinetFlowController)
+        cabinetFlowController.start()
+        
     }
     
     private func startTutorial() {
         let tutorialFlowController = TutorialFlowController(dependencyContainer: dependencyContainer)
-        tutorialFlowController.delegate = self
+        tutorialFlowController.tutorialFlowDidFinish = { [weak self] in
+            self?.remove(childController: tutorialFlowController)
+            self?.dependencyContainer.storage.isTutorialComplete = true
+            self?.startCabinet()
+        }
         add(childController: tutorialFlowController)
         tutorialFlowController.start()
     }
 }
 
-extension AppFlowController: TutorialFlowControllerDelegate {
-    func tutorialFlowControllerDidFinish(_ flowController: TutorialFlowController) {
-        remove(childController: flowController)
-        
-        startCabinet()
-    }
-}
 

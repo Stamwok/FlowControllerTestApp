@@ -8,43 +8,27 @@
 import Foundation
 import UIKit
 
-protocol TutorialFlowControllerDelegate: AnyObject {
-    func tutorialFlowControllerDidFinish(_ flowController: TutorialFlowController)
-}
-
-final class TutorialFlowController: UIViewController, TutorialViewControllerDelegate {
+final class TutorialFlowController: UINavigationController {
     private let dependencyContainer: DependencyContainer
-    private let tutorialNavigationController: UINavigationController = UINavigationController()
-    weak var delegate: TutorialFlowControllerDelegate?
+    
+    var tutorialFlowDidFinish: (() -> Void)?
+    private lazy var nextTutorialPage: ((Int) -> Void) = { [weak self] nextPage in
+        self?.start(page: nextPage)
+    }
     
     init(dependencyContainer: DependencyContainer) {
         self.dependencyContainer = dependencyContainer
         super.init(nibName: nil, bundle: nil)
-        
-        add(childController: tutorialNavigationController)
-        
-        print("init tutorialFlow")
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func start() {
-        let tutorialViewController = TutorialViewController()
-        tutorialViewController.flowController = self
-        
-        tutorialNavigationController.pushViewController(tutorialViewController, animated: true)
-    }
-    
-    func tutorialDidFinish() {
-        delegate?.tutorialFlowControllerDidFinish(self)
-        dependencyContainer.storage.isTutorialComplete = true
-    }
-    func nextPage(page: Int) {
-        print("nextPage")
-        let nextVC = TutorialViewController(page: page)
-        nextVC.flowController = self
-        tutorialNavigationController.pushViewController(nextVC, animated: true)
+    func start(page: Int = 0) {
+        let tutorialViewController = TutorialViewController(page: page)
+        tutorialViewController.tutorialDidFinish = tutorialFlowDidFinish
+        tutorialViewController.nextTutorialPage = nextTutorialPage
+        self.pushViewController(tutorialViewController, animated: true)
     }
 }

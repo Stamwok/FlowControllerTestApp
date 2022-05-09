@@ -7,20 +7,17 @@
 
 import UIKit
 
-protocol LoginViewControllerDelegate: AnyObject {
-    func showAuthorization(completionandler: @escaping ()->Void)
-}
+//protocol LoginViewControllerDelegate: AnyObject {
+//    func showAuthorization(completionandler: @escaping ()->Void)
+//}
 
 class LoginViewController: UIViewController {
     
     private let nameLabel = UILabel()
     private let authButton = UIButton()
     
-//    private let loginLabel: UILabel = UILabel()
-    
     private var flags: Flags
-    
-    weak var flowController: LoginViewControllerDelegate?
+    var showAuthorization: (() -> Void)?
     
     init(flags: Flags) {
         self.flags = flags
@@ -35,8 +32,6 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         title = "Login"
         view.backgroundColor = .white
-        
-        // Do any additional setup after loading the view.
         
         nameLabel.text = "Name"
         view.addSubview(nameLabel)
@@ -64,17 +59,13 @@ class LoginViewController: UIViewController {
     }
     
     @objc func authButtonTapped() {
-        flowController?.showAuthorization { [weak self] in
-            self?.nameLabel.text = self?.flags.login
-            self?.nameLabel.isHidden = false
-            self?.authButton.isHidden = true
-        }
+        guard let showAuthorization = showAuthorization else { return }
+        showAuthorization()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let login = flags.login {
-            print(login)
             nameLabel.text = login
             nameLabel.isHidden = false
             authButton.isHidden = true
