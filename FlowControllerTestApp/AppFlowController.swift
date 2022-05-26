@@ -6,10 +6,15 @@
 //
 
 import UIKit
+import ModelPackage
+import CabinetPackage
+import TutorialPackage
 
 class AppFlowController: UIViewController, UITabBarControllerDelegate {
     
     let dependencyContainer: DependencyContainer
+    
+//    private lazy var cabinetFlowDidEnd: (flowController: UIViewController)
     
     init(dependencyContainer: DependencyContainer) {
         self.dependencyContainer = dependencyContainer
@@ -30,6 +35,13 @@ class AppFlowController: UIViewController, UITabBarControllerDelegate {
     
     private func startCabinet() {
         let cabinetFlowController = CabinetFlowController(dependencyContainer: dependencyContainer)
+        cabinetFlowController.cabinetFlowDidFinish = { [weak self] in
+            self?.remove(childController: cabinetFlowController)
+            self?.dependencyContainer.storage.isTutorialComplete = false
+            self?.dependencyContainer.storage.login = nil
+            self?.startTutorial()
+            
+        }
         add(childController: cabinetFlowController)
         cabinetFlowController.start()
         
